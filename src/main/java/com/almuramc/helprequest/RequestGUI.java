@@ -1,5 +1,7 @@
 package com.almuramc.helprequest;
 
+import com.almuramc.helprequest.customs.DirectionButton;
+import com.almuramc.helprequest.customs.FixedTextField;
 import com.almuramc.helprequest.customs.NSButton;
 import com.almuramc.helprequest.customs.StateButton;
 import java.util.List;
@@ -13,8 +15,8 @@ public class RequestGUI extends GenericPopup {
 
 	private List<FilledRequest> isDisplaying;
 	private int state, currentOne;
-	private GenericTextField title = new GenericTextField();
-	private GenericTextField description = new GenericTextField();
+	private GenericTextField title = new FixedTextField();
+	private GenericTextField description = new FixedTextField();
 	private GenericLabel time = new GenericLabel(), location = new GenericLabel(), username = new GenericLabel();
 	private GenericButton dname = new StateButton(this);
 	private GenericButton ns = new NSButton(this);
@@ -37,6 +39,9 @@ public class RequestGUI extends GenericPopup {
 		GenericLabel locationL = new GenericLabel("Location: ");
 		GenericLabel titleL = new GenericLabel("Title: ");
 		GenericLabel descriptionL = new GenericLabel("Description: ");
+		
+		DirectionButton next = new DirectionButton(this, 1, ">");
+		DirectionButton prev = new DirectionButton(this, -1, "<");
 
 		usernameL.setX(30).setY(10).setHeight(15).setWidth(GenericLabel.getStringWidth(usernameL.getText()));
 		timeL.setX(30).setY(25).setHeight(15).setWidth(GenericLabel.getStringWidth(timeL.getText()));
@@ -51,12 +56,15 @@ public class RequestGUI extends GenericPopup {
 		description.setX(100).setY(90).setHeight(110).setWidth(300);
 		dname.setX(300).setY(10).setHeight(15).setWidth(80);
 		ns.setX(100).setY(210).setHeight(15).setWidth(50);
+		next.setX(180).setY(210).setHeight(15).setWidth(15);
+		prev.setX(160).setY(210).setHeight(15).setWidth(15);
 
 
 		attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
 		attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description);
 		attachWidget(main, dname);
 		attachWidget(main, ns);
+		attachWidget(main, next).attachWidget(main, prev);
 
 		refreshForState();
 		who.getMainScreen().attachPopupScreen(this);
@@ -85,8 +93,8 @@ public class RequestGUI extends GenericPopup {
 		time.setText("");
 		location.setText("").setDirty(true);
 		username.setText("").setDirty(true);
-		title.setText("").setDirty(true);
-		description.setText("").setDirty(true);
+		title.setText("").setPlaceholder("").setDirty(true);
+		description.setText("").setPlaceholder("").setDirty(true);
 		if(!(isDisplaying.isEmpty())) {
 			updateCurrentPage();
 		}
@@ -100,6 +108,8 @@ public class RequestGUI extends GenericPopup {
 		username.setText(current.getUsername());
 		title.setText(current.getTitle());
 		description.setText(current.getDescription());
+		inNewMode = false;
+		ns.setText("Create").setDirty(true);
 	}
 
 	public void onStateChange() {
@@ -126,6 +136,29 @@ public class RequestGUI extends GenericPopup {
 			title.setText("").setPlaceholder("Title here");
 			description.setText("").setPlaceholder("Description here");
 			inNewMode = true;
+		}
+	}
+
+	public void onDirection(int dir) {
+		if(dir == -1) {
+			currentOne--;
+			if(currentOne == -1) {
+				currentOne++;
+				return;
+			} else {
+				updateCurrentPage();
+			}
+		}
+		if(dir == 1) {
+			currentOne++;
+			System.out.println("Going to page "+currentOne+" from ");
+			System.out.println(isDisplaying.size() - 1);
+			if(currentOne > isDisplaying.size() - 1) {
+				currentOne--;
+				return;
+			} else {
+				updateCurrentPage();
+			}
 		}
 	}
 }
