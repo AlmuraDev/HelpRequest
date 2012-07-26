@@ -7,7 +7,7 @@ public class FixedTextField extends GenericTextField{
 
 	@Override
 	public void onTextFieldChange(TextFieldChangeEvent event) {
-		setDirty(true);
+		setPlaceholder("").setDirty(true);
 	}
-	
+
 }

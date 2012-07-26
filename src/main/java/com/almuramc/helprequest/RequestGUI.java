@@ -42,6 +42,7 @@ public class RequestGUI extends GenericPopup {
 		
 		DirectionButton next = new DirectionButton(this, 1, ">");
 		DirectionButton prev = new DirectionButton(this, -1, "<");
+		DirectionButton close = new DirectionButton(this, 0, "Close");
 
 		usernameL.setX(30).setY(10).setHeight(15).setWidth(GenericLabel.getStringWidth(usernameL.getText()));
 		timeL.setX(30).setY(25).setHeight(15).setWidth(GenericLabel.getStringWidth(timeL.getText()));
@@ -58,12 +59,14 @@ public class RequestGUI extends GenericPopup {
 		ns.setX(100).setY(210).setHeight(15).setWidth(50);
 		next.setX(180).setY(210).setHeight(15).setWidth(15);
 		prev.setX(160).setY(210).setHeight(15).setWidth(15);
+		close.setX(210).setY(210).setHeight(15).setWidth(50);
 
 
 		attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
 		attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description);
 		attachWidget(main, dname);
 		attachWidget(main, ns);
+		attachWidget(main, close);
 		attachWidget(main, next).attachWidget(main, prev);
 
 		refreshForState();
@@ -149,10 +152,13 @@ public class RequestGUI extends GenericPopup {
 				updateCurrentPage();
 			}
 		}
+		if(dir == 0 && state != 1 && !isDisplaying.isEmpty()) {
+			FilledRequest fr = isDisplaying.get(currentOne);
+			main.closeRequest(fr);
+			refreshForState();
+		}
 		if(dir == 1) {
 			currentOne++;
-			System.out.println("Going to page "+currentOne+" from ");
-			System.out.println(isDisplaying.size() - 1);
 			if(currentOne > isDisplaying.size() - 1) {
 				currentOne--;
 				return;
