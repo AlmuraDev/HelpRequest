@@ -1,0 +1,4 @@
+name: HelpRequest
+main: com.almuramc.helprequest.HelpRequest
+version: 0.1
+authors: [Dockter, ZNickq]
