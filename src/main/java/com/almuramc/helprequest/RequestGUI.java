@@ -47,83 +47,82 @@ public class RequestGUI extends GenericPopup {
         border.setWidth(626).setHeight(240);
         border.shiftXPos(-213).shiftYPos(-118);
 
-        //Create the widgets which are there every time
-        GenericLabel usernameL = new GenericLabel("Username: ");
-        GenericLabel timeL = new GenericLabel("Time: ");
-        GenericLabel locationL = new GenericLabel("Location: ");
-        GenericLabel titleL = new GenericLabel("Title: ");
-        GenericLabel descriptionL = new GenericLabel("Description: ");
-
+        //Create the widgets which are there every time       
         DirectionButton next = new DirectionButton(this, 1, ">");
         DirectionButton prev = new DirectionButton(this, -1, "<");
         DirectionButton close = new DirectionButton(this, 0, "Close");
         
+        GenericLabel usernameL = new GenericLabel("Username: ");
+        usernameL.setAnchor(WidgetAnchor.CENTER_CENTER);
         usernameL.setHeight(15).setWidth(GenericLabel.getStringWidth(usernameL.getText()));
-        usernameL.setAnchor(WidgetAnchor.TOP_LEFT);
         usernameL.shiftXPos(15).shiftYPos(30);
 
+        GenericLabel timeL = new GenericLabel("Time: ");
+        timeL.setAnchor(WidgetAnchor.CENTER_CENTER);
         timeL.setHeight(15).setWidth(GenericLabel.getStringWidth(timeL.getText()));
-        timeL.setAnchor(WidgetAnchor.TOP_LEFT);
         timeL.shiftXPos(15).shiftYPos(45);
 
+        GenericLabel locationL = new GenericLabel("Location: ");
+        locationL.setAnchor(WidgetAnchor.CENTER_CENTER);
         locationL.setHeight(15).setWidth(GenericLabel.getStringWidth(locationL.getText()));
-        locationL.setAnchor(WidgetAnchor.TOP_LEFT);
         locationL.shiftXPos(15).shiftYPos(60);
 
+        GenericLabel titleL = new GenericLabel("Title: ");
+        titleL.setAnchor(WidgetAnchor.CENTER_CENTER);
         titleL.setHeight(15).setWidth(GenericLabel.getStringWidth(titleL.getText()));
-        titleL.setAnchor(WidgetAnchor.TOP_LEFT);
         titleL.shiftXPos(15).shiftYPos(75);
 
+        GenericLabel descriptionL = new GenericLabel("Description: ");
+        descriptionL.setAnchor(WidgetAnchor.CENTER_CENTER);
         descriptionL.setHeight(15).setWidth(GenericLabel.getStringWidth(descriptionL.getText()));
-        descriptionL.setAnchor(WidgetAnchor.CENTER_LEFT);
         descriptionL.shiftXPos(15).shiftYPos(-15);
 
+        clist.setAnchor(WidgetAnchor.CENTER_CENTER);
         clist.setHeight(15).setWidth(70);
-        clist.setAnchor(WidgetAnchor.CENTER_RIGHT); //TOP_RIGHT widget doesn't work
         clist.setText("List");
         clist.shiftXPos(-80).shiftYPos(-95);
 
+        username.setAnchor(WidgetAnchor.CENTER_CENTER);
         username.setHeight(15).setWidth(80);
-        username.setAnchor(WidgetAnchor.TOP_LEFT);
         username.shiftXPos(85).shiftYPos(30);
 
+        time.setAnchor(WidgetAnchor.CENTER_CENTER);
         time.setHeight(15).setWidth(80);
-        time.setAnchor(WidgetAnchor.TOP_LEFT);
         time.shiftXPos(85).shiftYPos(45);
 
+        location.setAnchor(WidgetAnchor.CENTER_CENTER);
         location.setHeight(15).setWidth(80);
-        location.setAnchor(WidgetAnchor.TOP_LEFT);
         location.shiftXPos(85).shiftYPos(60);
 
+        title.setAnchor(WidgetAnchor.CENTER_CENTER);
         title.setHeight(15).setWidth(80);
-        title.setAnchor(WidgetAnchor.TOP_LEFT);
         title.shiftXPos(85).shiftYPos(75);
 
-        description.setMaximumLines(9);
-        description.setMaximumCharacters(1000);
-        description.setHeight(110).setWidth(253);
-        description.setAnchor(WidgetAnchor.CENTER_LEFT);
+        description.setAnchor(WidgetAnchor.CENTER_CENTER);
         description.shiftXPos(85).shiftYPos(-15);
+        description.setMaximumLines(9).setMaximumCharacters(1000);
+        description.setHeight(110).setWidth(253);
+        
 
+        dname.setAnchor(WidgetAnchor.CENTER_CENTER);
         dname.setHeight(15).setWidth(100);
-        dname.setAnchor(WidgetAnchor.TOP_CENTER);
         dname.shiftXPos(25).shiftYPos(30);
 
+        ns.setAnchor(WidgetAnchor.CENTER_CENTER);
         ns.setHeight(15).setWidth(50);
-        ns.setAnchor(WidgetAnchor.BOTTOM_CENTER);
         ns.shiftXPos(-130).shiftYPos(-25);
 
+        prev.setAnchor(WidgetAnchor.CENTER_CENTER);
         prev.setHeight(15).setWidth(15);
-        prev.setAnchor(WidgetAnchor.BOTTOM_CENTER);
         prev.shiftXPos(-70).shiftYPos(-25);
 
+        next.setAnchor(WidgetAnchor.CENTER_CENTER);
         next.setHeight(15).setWidth(15);
-        next.setAnchor(WidgetAnchor.BOTTOM_CENTER);
         next.shiftXPos(-50).shiftYPos(-25);
 
+        close.setAnchor(WidgetAnchor.CENTER_CENTER);
         close.setHeight(15).setWidth(50);
-        close.setAnchor(WidgetAnchor.BOTTOM_CENTER);
-        close.shiftXPos(-30).shiftYPos(-25);
+        close.shiftXPos(142).shiftYPos(87);
 
         attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
         attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description);
