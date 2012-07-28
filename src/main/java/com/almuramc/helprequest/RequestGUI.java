@@ -2,13 +2,10 @@ package com.almuramc.helprequest;
 
 import com.almuramc.helprequest.customs.DirectionButton;
 import com.almuramc.helprequest.customs.FixedTextField;
-import com.almuramc.helprequest.customs.MyComboBox;
 import com.almuramc.helprequest.customs.NSButton;
 import com.almuramc.helprequest.customs.StateButton;
-import java.util.ArrayList;
 import java.util.List;
 import org.getspout.spoutapi.gui.GenericButton;
-import org.getspout.spoutapi.gui.GenericComboBox;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericTextField;
