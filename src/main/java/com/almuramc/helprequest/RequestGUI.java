@@ -81,7 +81,7 @@ public class RequestGUI extends GenericPopup {
 		title.setAnchor(WidgetAnchor.TOP_LEFT);
 		title.shiftXPos(100).shiftYPos(55);
 		
-		description.setMaximumLines(7);
+		description.setMaximumLines(9);
 		description.setMaximumCharacters(1000);
 		description.setHeight(110).setWidth(300);
 		description.setAnchor(WidgetAnchor.CENTER_LEFT);
