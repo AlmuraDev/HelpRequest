@@ -18,5 +18,4 @@ public class DirectionButton extends GenericButton{
 	public void onButtonClick(ButtonClickEvent event) {
 		gui.onDirection(dir);
 	}
-	
 }

@@ -33,7 +33,7 @@ public class HelpRequest extends JavaPlugin {
 			opened = (List<FilledRequest>) SLAPI.load(getDataFolder() + File.separator + "opened.dat");
 			closed = (List<FilledRequest>) SLAPI.load(getDataFolder() + File.separator + "closed.dat");
 		} catch (Exception ex) {
-			Logger.getLogger(HelpRequest.class.getName()).log(Level.SEVERE, null, ex);
+			
 		}
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new HRListener(this), this);
