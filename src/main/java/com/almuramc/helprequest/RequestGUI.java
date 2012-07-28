@@ -26,7 +26,6 @@ public class RequestGUI extends GenericPopup {
     private GenericLabel time = new GenericLabel(), location = new GenericLabel(), username = new GenericLabel();
     private GenericButton dname = new StateButton(this);
     private GenericButton ns = new NSButton(this);
-    private GenericComboBox clist = new MyComboBox(this);
     private HelpRequest main;
     private SpoutPlayer player;
     private boolean inNewMode;
@@ -55,80 +54,74 @@ public class RequestGUI extends GenericPopup {
         GenericLabel usernameL = new GenericLabel("Username: ");
         usernameL.setAnchor(WidgetAnchor.CENTER_CENTER);
         usernameL.setHeight(15).setWidth(GenericLabel.getStringWidth(usernameL.getText()));
-        usernameL.shiftXPos(15).shiftYPos(30);
+        usernameL.shiftXPos(-190).shiftYPos(-100);
 
         GenericLabel timeL = new GenericLabel("Time: ");
         timeL.setAnchor(WidgetAnchor.CENTER_CENTER);
         timeL.setHeight(15).setWidth(GenericLabel.getStringWidth(timeL.getText()));
-        timeL.shiftXPos(15).shiftYPos(45);
+        timeL.shiftXPos(-190).shiftYPos(-85);
 
         GenericLabel locationL = new GenericLabel("Location: ");
         locationL.setAnchor(WidgetAnchor.CENTER_CENTER);
         locationL.setHeight(15).setWidth(GenericLabel.getStringWidth(locationL.getText()));
-        locationL.shiftXPos(15).shiftYPos(60);
+        locationL.shiftXPos(-190).shiftYPos(-70);
 
         GenericLabel titleL = new GenericLabel("Title: ");
         titleL.setAnchor(WidgetAnchor.CENTER_CENTER);
         titleL.setHeight(15).setWidth(GenericLabel.getStringWidth(titleL.getText()));
-        titleL.shiftXPos(15).shiftYPos(75);
+        titleL.shiftXPos(-190).shiftYPos(-55);
 
         GenericLabel descriptionL = new GenericLabel("Description: ");
         descriptionL.setAnchor(WidgetAnchor.CENTER_CENTER);
         descriptionL.setHeight(15).setWidth(GenericLabel.getStringWidth(descriptionL.getText()));
-        descriptionL.shiftXPos(15).shiftYPos(-15);
-
-        clist.setAnchor(WidgetAnchor.CENTER_CENTER);
-        clist.setHeight(15).setWidth(70);
-        clist.setText("List");
-        clist.shiftXPos(-80).shiftYPos(-95);
+        descriptionL.shiftXPos(-190).shiftYPos(-35);
 
         username.setAnchor(WidgetAnchor.CENTER_CENTER);
         username.setHeight(15).setWidth(80);
-        username.shiftXPos(85).shiftYPos(30);
+        username.shiftXPos(-125).shiftYPos(-100);
 
         time.setAnchor(WidgetAnchor.CENTER_CENTER);
         time.setHeight(15).setWidth(80);
-        time.shiftXPos(85).shiftYPos(45);
+        time.shiftXPos(-125).shiftYPos(-85);
 
         location.setAnchor(WidgetAnchor.CENTER_CENTER);
         location.setHeight(15).setWidth(80);
-        location.shiftXPos(85).shiftYPos(60);
+        location.shiftXPos(-125).shiftYPos(-70);
 
         title.setAnchor(WidgetAnchor.CENTER_CENTER);
         title.setHeight(15).setWidth(80);
-        title.shiftXPos(85).shiftYPos(75);
+        title.shiftXPos(-125).shiftYPos(-55);
 
         description.setAnchor(WidgetAnchor.CENTER_CENTER);
-        description.shiftXPos(85).shiftYPos(-15);
+        description.shiftXPos(-125).shiftYPos(-35);
         description.setMaximumLines(9).setMaximumCharacters(1000);
         description.setHeight(110).setWidth(253);
         
 
         dname.setAnchor(WidgetAnchor.CENTER_CENTER);
         dname.setHeight(15).setWidth(100);
-        dname.shiftXPos(25).shiftYPos(30);
+        dname.shiftXPos(20).shiftYPos(-110);
 
         ns.setAnchor(WidgetAnchor.CENTER_CENTER);
         ns.setHeight(15).setWidth(50);
-        ns.shiftXPos(-130).shiftYPos(-25);
+        ns.shiftXPos(-125).shiftYPos(85);
 
         prev.setAnchor(WidgetAnchor.CENTER_CENTER);
         prev.setHeight(15).setWidth(15);
-        prev.shiftXPos(-70).shiftYPos(-25);
+        prev.shiftXPos(-65).shiftYPos(85);
 
         next.setAnchor(WidgetAnchor.CENTER_CENTER);
         next.setHeight(15).setWidth(15);
-        next.shiftXPos(-50).shiftYPos(-25);
+        next.shiftXPos(-45).shiftYPos(85);
 
         close.setAnchor(WidgetAnchor.CENTER_CENTER);
         close.setHeight(15).setWidth(50);
-        close.shiftXPos(142).shiftYPos(87);
+        close.shiftXPos(-20).shiftYPos(85);
 
         attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
         attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description);
         attachWidget(main, dname);
         attachWidget(main, ns);
-        attachWidget(main, clist);
         attachWidget(main, border);
         attachWidget(main, close);
         attachWidget(main, next).attachWidget(main, prev);
@@ -140,8 +133,6 @@ public class RequestGUI extends GenericPopup {
 
     private void refreshForState() {
         isDisplaying = main.getRequestsFor(player.getName(), state);
-        refreshList();
-
         switch (state) {
             case 0:
                 dname.setText("Opened requests");
@@ -231,22 +222,5 @@ public class RequestGUI extends GenericPopup {
                 updateCurrentPage();
             }
         }
-    }
-
-    private void refreshList() {
-        List<String> toSet = new ArrayList<String>();
-        for(FilledRequest fr: isDisplaying) {
-            toSet.add(fr.getTitle());
-        }
-        clist.setItems(toSet).setDirty(true);
-    }
-
-    public void onSelectionChanged(int i) {
-        if(i<0)
-            return;
-        if(i>=isDisplaying.size())
-            return;
-        currentOne = i;
-        updateCurrentPage();
     }
 }
