@@ -1,14 +1,15 @@
 package com.almuramc.helprequest.customs;
 
-import com.almuramc.helprequest.RequestGUI;
+import com.almuramc.helprequest.MainGUI;
+import com.almuramc.helprequest.RequestListGUI;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.gui.GenericButton;
 
 public class DirectionButton extends GenericButton{
-	private RequestGUI gui;
+	private Object gui;
 	private int dir;
 	
-	public DirectionButton(RequestGUI gui, int dir, String text) {
+	public DirectionButton(Object gui, int dir, String text) {
 		super(text);
 		this.gui = gui;
 		this.dir = dir;
@@ -16,6 +17,11 @@ public class DirectionButton extends GenericButton{
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		gui.onDirection(dir);
+		if(gui instanceof MainGUI) {
+			((MainGUI)gui).onDirection(dir);
+		}
+		if(gui instanceof RequestListGUI) {
+			((RequestListGUI)gui).onDirection(dir);
+		}
 	}
 }

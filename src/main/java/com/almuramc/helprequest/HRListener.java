@@ -16,7 +16,7 @@ public class HRListener implements Listener{
 	@EventHandler
 	public void onKeyPressed(KeyPressedEvent event) {
 		if(event.getKey() == Keyboard.KEY_F6) {
-			new RequestGUI(main, event.getPlayer());
+			new MainGUI(main, event.getPlayer());
 		}
 	}
 	

@@ -1,26 +1,20 @@
 package com.almuramc.helprequest.customs;
 
-import com.almuramc.helprequest.RequestGUI;
+import com.almuramc.helprequest.ViewGUI;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.gui.GenericButton;
 
 public class NSButton extends GenericButton {
 
-	private RequestGUI gui;
+	private ViewGUI gui;
 
-	public NSButton(RequestGUI gui) {
-		super("Create");
+	public NSButton(ViewGUI gui, String text) {
+		super(text);
 		this.gui = gui;
 	}
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		if (getText().equals("Create")) {
-			setText("Save");
-		} else {
-			setText("Create");
-		}
-		setDirty(true);
 		gui.onNS();
 	}
 }
