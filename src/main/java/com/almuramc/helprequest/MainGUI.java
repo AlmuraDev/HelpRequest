@@ -31,7 +31,7 @@ public class MainGUI extends GenericPopup {
 		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
 		border.setAnchor(WidgetAnchor.CENTER_CENTER);
 		border.setPriority(RenderPriority.High);
-		border.setWidth(170).setHeight(80);
+		border.setWidth(170).setHeight(100);
 		border.shiftXPos(-85).shiftYPos(-40);
 		
 		GenericLabel gl = new GenericLabel("Welcome to HelpRequest");

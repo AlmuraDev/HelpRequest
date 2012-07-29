@@ -66,6 +66,15 @@ public class HelpRequest extends JavaPlugin {
 					}
 				}
 				break;
+			case 3:
+				
+				for (int i = closed.size() - 1; i >= 0; i--) {
+					FilledRequest fr = closed.get(i);
+					if (fr.getState() != 0) {
+						toRet.add(fr);
+					}
+				}
+				break;
 		}
 		return toRet;
 	}
