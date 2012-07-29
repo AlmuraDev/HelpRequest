@@ -8,6 +8,8 @@ import com.almuramc.helprequest.customs.DirectionButton;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericPopup;
+import org.getspout.spoutapi.gui.GenericTexture;
+import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -24,6 +26,14 @@ public class MainGUI extends GenericPopup {
 		this.main = main;
 		this.who = who;
 
+		
+		//Set the background
+		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
+		border.setAnchor(WidgetAnchor.CENTER_CENTER);
+		border.setPriority(RenderPriority.High);
+		border.setWidth(170).setHeight(80);
+		border.shiftXPos(-85).shiftYPos(-40);
+		
 		GenericLabel gl = new GenericLabel("Welcome to HelpRequest");
 		gl.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gl.setHeight(15).setWidth(GenericLabel.getStringWidth(gl.getText()));
@@ -41,6 +51,7 @@ public class MainGUI extends GenericPopup {
 		viewown.setHeight(16).setWidth(GenericLabel.getStringWidth(viewown.getText()) + 3).shiftXPos(-viewown.getWidth() / 2).shiftYPos(10);
 		viewother.setHeight(16).setWidth(GenericLabel.getStringWidth(viewother.getText()) + 3).shiftXPos(-viewother.getWidth() / 2).shiftYPos(30);
 
+		attachWidget(main, border);
 		attachWidget(main, gl).attachWidget(main, create).attachWidget(main, viewown);
 
 		if (who.hasPermission("helprequest.admin") || who.isOp()) {
