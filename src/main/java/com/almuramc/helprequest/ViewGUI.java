@@ -1,7 +1,6 @@
 package com.almuramc.helprequest;
 
 import com.almuramc.helprequest.customs.CloseButton;
-import com.almuramc.helprequest.customs.DirectionButton;
 import com.almuramc.helprequest.customs.FixedTextField;
 import com.almuramc.helprequest.customs.NSButton;
 import org.getspout.spoutapi.gui.GenericButton;
@@ -10,7 +9,6 @@ import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericTextField;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
-import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -101,7 +99,7 @@ public class ViewGUI extends GenericPopup {
 		
 		GenericButton close = new CloseButton(this, "Close");
 		close.setAnchor(WidgetAnchor.CENTER_CENTER);
-		close.shiftXPos(150).shiftYPos(95);
+		close.shiftXPos(150).shiftYPos(85);
 		close.setHeight(15).setWidth(40);
 		
 		attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
@@ -139,11 +137,7 @@ public class ViewGUI extends GenericPopup {
 	}
 
 	public void onCloseClick() {
-		Screen screen = ((SpoutPlayer) player).getMainScreen();
-		screen.removeWidget(this);
-		//player.getMainScreen().closePopup();
-		player.closeActiveWindow();
-
+		new MainGUI(main, player);
 	}
 	
 	public void updateCurrentPage() {
@@ -154,6 +148,10 @@ public class ViewGUI extends GenericPopup {
 			username.setText(current.getUsername());
 			title.setText(current.getTitle());
 			description.setText(current.getDescription());
+		} else {
+			username.setText(player.getName());
+			time.setText(FilledRequest.currentTimeStamp());
+			location.setText(FilledRequest.parse(player.getLocation()));
 		}
 		if (estate == 0) {
 			ns.setText("Create");
@@ -170,7 +168,7 @@ public class ViewGUI extends GenericPopup {
 	public void onNS() {
 		if (estate == 0) {
 			estate = 2;
-			FilledRequest fr = new FilledRequest(title.getText(), description.getText(), player);
+			FilledRequest fr = new FilledRequest(title.getText(), description.getText(), time.getText(), player);
 			main.addRequest(fr);
 			isDisplaying = fr;
 			refreshForState();
