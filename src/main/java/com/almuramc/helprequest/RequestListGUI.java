@@ -9,7 +9,10 @@ import org.getspout.spoutapi.gui.GenericComboBox;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericListWidget;
 import org.getspout.spoutapi.gui.GenericPopup;
+import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.ListWidgetItem;
+import org.getspout.spoutapi.gui.RenderPriority;
+import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -32,28 +35,46 @@ public class RequestListGUI extends GenericPopup {
 		this.justForHim = justForHim;
 		this.state = 0;
 
+		//Set the background
+		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
+		border.setAnchor(WidgetAnchor.CENTER_CENTER);
+		border.setPriority(RenderPriority.High);
+		border.setWidth(370).setHeight(330);
+		border.shiftXPos(-155).shiftYPos(-120);
+		
+		GenericLabel gl = new GenericLabel("List of Requests");
+		gl.setScale(1.2F);
+		gl.setAnchor(WidgetAnchor.CENTER_CENTER);
+		gl.setHeight(15).setWidth(GenericLabel.getStringWidth(gl.getText()));
+		gl.shiftXPos(-15).shiftYPos(-105);
+		
 		gle.setAnchor(WidgetAnchor.CENTER_CENTER);
-		gle.shiftXPos(-190).shiftYPos(-100);
-		gle.setHeight(200).setWidth(400);
+		gle.shiftXPos(-130).shiftYPos(-80);
+		gle.setHeight(170).setWidth(310);
 
-		GenericButton view = new DirectionButton(this, 0, "View");
-		view.setAnchor(WidgetAnchor.CENTER_CENTER);
-		view.shiftXPos(-190).shiftYPos(100);
-		view.setHeight(15).setWidth(GenericLabel.getStringWidth("View") + 10);
+		GenericButton viewreq = new DirectionButton(this, 0, "View Request");
+		viewreq.setAnchor(WidgetAnchor.CENTER_CENTER);
+		viewreq.shiftXPos(-140).shiftYPos(95);
+		viewreq.setHeight(15).setWidth(80);
 
-		GenericButton close = new DirectionButton(this, 1, "Close");
+		GenericButton closereq = new DirectionButton(this, 1, "Close Request");
+		closereq.setAnchor(WidgetAnchor.CENTER_CENTER);
+		closereq.shiftXPos(-50).shiftYPos(95);
+		closereq.setHeight(15).setWidth(80);
+		
+		GenericButton close = new DirectionButton(this, 2, "Close");
 		close.setAnchor(WidgetAnchor.CENTER_CENTER);
-		close.shiftXPos(-150).shiftYPos(100);
-		close.setHeight(15).setWidth(GenericLabel.getStringWidth("Close") + 10);
+		close.shiftXPos(150).shiftYPos(95);
+		close.setHeight(15).setWidth(40);
 
 		GenericComboBox myBox = new MyComboBox(this);
 		myBox.setAnchor(WidgetAnchor.CENTER_CENTER);
-		myBox.shiftXPos(100).shiftYPos(-118);
+		myBox.shiftXPos(120).shiftYPos(-108);
 		myBox.setText("Filters");
 		myBox.setHeight(15).setWidth(GenericLabel.getStringWidth("Filters") + 35);
 		myBox.setItems(Arrays.asList("Opened", "Closed"));
 
-		attachWidget(main, gle).attachWidget(main, view).attachWidget(main, close);
+		attachWidget(main, border).attachWidget(main, gle).attachWidget(main, gl).attachWidget(main, viewreq).attachWidget(main, closereq).attachWidget(main, close);
 
 		attachWidget(main, myBox);
 
@@ -77,6 +98,7 @@ public class RequestListGUI extends GenericPopup {
 
 	public void onSelected(int item, boolean doubleClick) {
 		//TODO maybe open on double-click or w/e
+		//Nickq: Do Nothing
 	}
 
 	public void onDirection(int dir) {
@@ -86,16 +108,24 @@ public class RequestListGUI extends GenericPopup {
 			cur = isDisplaying.get(gle.getSelectedRow());
 		} catch (Exception ex) {
 		}
+		
+		if (dir == 2) { //close window
+			Screen screen = who.getMainScreen();
+			screen.removeWidget(this);				
+			who.closeActiveWindow();						
+		}
 		if (cur == null) {
 			return;
 		}
-		if (dir == 0) { //view
+		if (dir == 0) { //view request
 			new ViewGUI(main, who, 2, cur);
 		}
-		if (dir == 1) { //close
+		if (dir == 1) { //close request
 			main.closeRequest(cur);
 			refreshForContent();
 		}
+		
+		
 	}
 
 	public void onSelectionChanged(String text) {

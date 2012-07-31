@@ -1,5 +1,7 @@
 package com.almuramc.helprequest;
 
+import com.almuramc.helprequest.customs.CloseButton;
+import com.almuramc.helprequest.customs.DirectionButton;
 import com.almuramc.helprequest.customs.FixedTextField;
 import com.almuramc.helprequest.customs.NSButton;
 import org.getspout.spoutapi.gui.GenericButton;
@@ -8,6 +10,7 @@ import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericTextField;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
+import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -95,9 +98,14 @@ public class ViewGUI extends GenericPopup {
 		ns.setAnchor(WidgetAnchor.CENTER_CENTER);
 		ns.setHeight(15).setWidth(50);
 		ns.shiftXPos(-125).shiftYPos(85);
-
+		
+		GenericButton close = new CloseButton(this, "Close");
+		close.setAnchor(WidgetAnchor.CENTER_CENTER);
+		close.shiftXPos(150).shiftYPos(95);
+		close.setHeight(15).setWidth(40);
+		
 		attachWidget(main, usernameL).attachWidget(main, timeL).attachWidget(main, titleL).attachWidget(main, locationL).attachWidget(main, titleL).attachWidget(main, descriptionL);
-		attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description);
+		attachWidget(main, username).attachWidget(main, time).attachWidget(main, location).attachWidget(main, title).attachWidget(main, description).attachWidget(main, close);
 		attachWidget(main, dname);
 		attachWidget(main, ns);
 		attachWidget(main, border);
@@ -130,6 +138,14 @@ public class ViewGUI extends GenericPopup {
 
 	}
 
+	public void onCloseClick() {
+		Screen screen = ((SpoutPlayer) player).getMainScreen();
+		screen.removeWidget(this);
+		//player.getMainScreen().closePopup();
+		player.closeActiveWindow();
+
+	}
+	
 	public void updateCurrentPage() {
 		FilledRequest current = isDisplaying;
 		if (current != null) {

@@ -10,12 +10,13 @@ import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericPopup;
 import org.getspout.spoutapi.gui.GenericTexture;
 import org.getspout.spoutapi.gui.RenderPriority;
+import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.WidgetAnchor;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  *
- * @author ZNickq
+ * @author ZNickq / Dockter
  */
 public class MainGUI extends GenericPopup {
 
@@ -31,28 +32,32 @@ public class MainGUI extends GenericPopup {
 		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
 		border.setAnchor(WidgetAnchor.CENTER_CENTER);
 		border.setPriority(RenderPriority.High);
-		border.setWidth(170).setHeight(100);
-		border.shiftXPos(-85).shiftYPos(-40);
+		border.setWidth(170).setHeight(130);
+		border.shiftXPos(-85).shiftYPos(-80);
 		
 		GenericLabel gl = new GenericLabel("Welcome to HelpRequest");
+		gl.setScale(1.2F);
 		gl.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gl.setHeight(15).setWidth(GenericLabel.getStringWidth(gl.getText()));
-		gl.shiftXPos(-gl.getWidth() / 2).shiftYPos(-30);
+		gl.shiftXPos(-70).shiftYPos(-70);
 
 		GenericButton create = new DirectionButton(this, 1, "Create new request");
 		GenericButton viewown = new DirectionButton(this, 2, "Edit existing requests");
 		GenericButton viewother = new DirectionButton(this, 3, "View all requests");
+		GenericButton close = new DirectionButton(this, 4, "Close");
 
 		create.setAnchor(WidgetAnchor.CENTER_CENTER);
 		viewown.setAnchor(WidgetAnchor.CENTER_CENTER);
 		viewother.setAnchor(WidgetAnchor.CENTER_CENTER);
+		close.setAnchor(WidgetAnchor.CENTER_CENTER);
 
-		create.setHeight(16).setWidth(GenericLabel.getStringWidth(create.getText()) + 3).shiftXPos(-create.getWidth() / 2).shiftYPos(-10);
-		viewown.setHeight(16).setWidth(GenericLabel.getStringWidth(viewown.getText()) + 3).shiftXPos(-viewown.getWidth() / 2).shiftYPos(10);
-		viewother.setHeight(16).setWidth(GenericLabel.getStringWidth(viewother.getText()) + 3).shiftXPos(-viewother.getWidth() / 2).shiftYPos(30);
-
+		create.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(-40);
+		viewown.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(-20);
+		viewother.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(0);
+		close.setHeight(16).setWidth(40).shiftXPos(20).shiftYPos(30);
+		
 		attachWidget(main, border);
-		attachWidget(main, gl).attachWidget(main, create).attachWidget(main, viewown);
+		attachWidget(main, gl).attachWidget(main, create).attachWidget(main, viewown).attachWidget(main, close);
 
 		if (who.hasPermission("helprequest.admin") || who.isOp()) {
 			attachWidget(main, viewother);
@@ -71,6 +76,11 @@ public class MainGUI extends GenericPopup {
 				break;
 			case 3: //View
 				new RequestListGUI(main, who, false);
+				break;
+			case 4:
+				Screen screen = ((SpoutPlayer) getPlayer()).getMainScreen();
+				screen.removeWidget(this);				
+				((SpoutPlayer) getPlayer()).closeActiveWindow();
 				break;
 		}
 	}
