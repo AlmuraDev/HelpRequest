@@ -63,6 +63,7 @@ public class MainGUI extends GenericPopup {
 			attachWidget(main, viewother);
 		}
 
+		who.getMainScreen().closePopup();
 		who.getMainScreen().attachPopupScreen(this);
 	}
 
