@@ -28,6 +28,7 @@ public class RequestListGUI extends GenericPopup {
 	private int state;
 	private List<FilledRequest> isDisplaying;
 	private GenericListWidget gle = new GenericListWidget();
+	private GenericButton closereq;
 
 	public RequestListGUI(HelpRequest main, SpoutPlayer who, boolean justForHim) {
 		this.main = main;
@@ -41,27 +42,27 @@ public class RequestListGUI extends GenericPopup {
 		border.setPriority(RenderPriority.High);
 		border.setWidth(370).setHeight(330);
 		border.shiftXPos(-155).shiftYPos(-120);
-		
+
 		GenericLabel gl = new GenericLabel("List of Requests");
 		gl.setScale(1.2F);
 		gl.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gl.setHeight(15).setWidth(GenericLabel.getStringWidth(gl.getText()));
 		gl.shiftXPos(-15).shiftYPos(-105);
-		
+
 		gle.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gle.shiftXPos(-130).shiftYPos(-80);
 		gle.setHeight(170).setWidth(310);
 
-		GenericButton viewreq = new DirectionButton(this, 0, "View Request");
+		GenericButton viewreq = new DirectionButton(this, 0, "Edit Request");
 		viewreq.setAnchor(WidgetAnchor.CENTER_CENTER);
 		viewreq.shiftXPos(-140).shiftYPos(95);
 		viewreq.setHeight(15).setWidth(80);
 
-		GenericButton closereq = new DirectionButton(this, 1, "Close Request");
+		closereq = new DirectionButton(this, 1, "Close Request");
 		closereq.setAnchor(WidgetAnchor.CENTER_CENTER);
 		closereq.shiftXPos(-50).shiftYPos(95);
-		closereq.setHeight(15).setWidth(80);
-		
+		closereq.setHeight(15).setWidth(90);
+
 		GenericButton close = new DirectionButton(this, 2, "Close");
 		close.setAnchor(WidgetAnchor.CENTER_CENTER);
 		close.shiftXPos(150).shiftYPos(95);
@@ -108,35 +109,41 @@ public class RequestListGUI extends GenericPopup {
 			cur = isDisplaying.get(gle.getSelectedRow());
 		} catch (Exception ex) {
 		}
-		
+
 		if (dir == 2) { //close window
 			Screen screen = who.getMainScreen();
-			screen.removeWidget(this);				
-			who.closeActiveWindow();						
+			screen.removeWidget(this);
+			who.closeActiveWindow();
 		}
 		if (cur == null) {
 			return;
 		}
 		if (dir == 0) { //view request
-			new ViewGUI(main, who, 2, cur);
+			new ViewGUI(main, who, 1, cur);
 		}
 		if (dir == 1) { //close request
-			main.closeRequest(cur);
+			if (state == 0) {
+				main.closeRequest(cur);
+			} else {
+				main.reopenRequest(cur);
+			}
 			refreshForContent();
 		}
-		
-		
+
+
 	}
 
 	public void onSelectionChanged(String text) {
-		if(text == null) {
+		if (text == null) {
 			return;
 		}
 		if (text.equals("Opened")) {
 			state = 0;
+			closereq.setText("Close Request").setDirty(true);
 			refreshForContent();
 		} else {
 			state = 1;
+			closereq.setText("Reopen Request").setDirty(true);
 			refreshForContent();
 		}
 	}

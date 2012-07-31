@@ -12,11 +12,12 @@ public class FilledRequest implements Serializable {
 	private String username, time, location;
 	private int state;
 
-	public FilledRequest(String title, String description, Player creator) {
+	public FilledRequest(String title, String description, String time, Player creator) {
 		this.title = title;
 		this.description = description;
 		username = creator.getName();
 		refresh(creator);
+		this.time = time;
 		state = 0;
 	}
 
@@ -56,13 +57,18 @@ public class FilledRequest implements Serializable {
 
     public final void refresh(Player player) {
 		time = currentTimeStamp();
-		Location toParse = player.getLocation();
-		int bx = toParse.getBlockX();
-		int by = toParse.getBlockY();
-		int bz = toParse.getBlockZ();
-		String world = toParse.getWorld().getName();
-		this.location = world + ", at x:" + bx + " y:" + by + " z:" + bz;
+		this.location = parse(player.getLocation());
     }
+	
+	
+	public static String parse(Location location) {
+		int bx = location.getBlockX();
+		int by = location.getBlockY();
+		int bz = location.getBlockZ();
+		String world = location.getWorld().getName();
+		return world + ", at x:" + bx + " y:" + by + " z:" + bz;
+	}
+
 
 	public void setTitle(String text) {
 		title = text;
