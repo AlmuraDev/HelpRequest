@@ -2,6 +2,7 @@ name: HelpRequest
 main: com.almuramc.helprequest.HelpRequest
 version: 1.0
 authors: [Dockter, ZNickq]
+depend: [Spout]
 commands:   
   helprequest:
     description: HelpRequest command.
