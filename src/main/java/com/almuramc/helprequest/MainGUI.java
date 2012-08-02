@@ -54,7 +54,7 @@ public class MainGUI extends GenericPopup {
 		create.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(-40);
 		viewown.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(-20);
 		viewother.setHeight(16).setWidth(120).shiftXPos(-60).shiftYPos(0);
-		close.setHeight(16).setWidth(40).shiftXPos(20).shiftYPos(30);
+		close.setHeight(16).setWidth(40).shiftXPos(20).shiftYPos(28);
 		
 		attachWidget(main, border);
 		attachWidget(main, gl).attachWidget(main, create).attachWidget(main, viewown).attachWidget(main, close);

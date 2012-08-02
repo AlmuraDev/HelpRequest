@@ -47,7 +47,7 @@ public class RequestListGUI extends GenericPopup {
 		gl.setScale(1.2F);
 		gl.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gl.setHeight(15).setWidth(GenericLabel.getStringWidth(gl.getText()));
-		gl.shiftXPos(-15).shiftYPos(-105);
+		gl.shiftXPos(-25).shiftYPos(-105);
 
 		gle.setAnchor(WidgetAnchor.CENTER_CENTER);
 		gle.shiftXPos(-130).shiftYPos(-80);
@@ -67,6 +67,11 @@ public class RequestListGUI extends GenericPopup {
 		close.setAnchor(WidgetAnchor.CENTER_CENTER);
 		close.shiftXPos(150).shiftYPos(95);
 		close.setHeight(15).setWidth(40);
+		
+		GenericButton delbutton = new DirectionButton(this, 3, "Delete Request");
+		delbutton.setAnchor(WidgetAnchor.CENTER_CENTER);
+		delbutton.shiftXPos(50).shiftYPos(95);
+		delbutton.setHeight(15).setWidth(90);
 
 		GenericComboBox myBox = new MyComboBox(this);
 		myBox.setAnchor(WidgetAnchor.CENTER_CENTER);
@@ -75,7 +80,7 @@ public class RequestListGUI extends GenericPopup {
 		myBox.setHeight(15).setWidth(GenericLabel.getStringWidth("Filters") + 35);
 		myBox.setItems(Arrays.asList("Opened", "Closed"));
 
-		attachWidget(main, border).attachWidget(main, gle).attachWidget(main, gl).attachWidget(main, viewreq).attachWidget(main, closereq).attachWidget(main, close);
+		attachWidget(main, border).attachWidget(main, gle).attachWidget(main, gl).attachWidget(main, viewreq).attachWidget(main, closereq).attachWidget(main, delbutton).attachWidget(main, close);
 
 		attachWidget(main, myBox);
 
@@ -111,9 +116,7 @@ public class RequestListGUI extends GenericPopup {
 		}
 
 		if (dir == 2) { //close window
-			Screen screen = who.getMainScreen();
-			screen.removeWidget(this);
-			who.closeActiveWindow();
+			new MainGUI(main, who);			
 		}
 		if (cur == null) {
 			return;
@@ -121,6 +124,12 @@ public class RequestListGUI extends GenericPopup {
 		if (dir == 0) { //view request
 			new ViewGUI(main, who, 1, cur);
 		}
+		
+		if (dir == 3) { //delete request
+			main.deleteRequest(cur);
+			refreshForContent();
+		}
+		
 		if (dir == 1) { //close request
 			if (state == 0) {
 				main.closeRequest(cur);

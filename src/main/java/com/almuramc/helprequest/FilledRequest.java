@@ -9,13 +9,14 @@ import org.bukkit.entity.Player;
 public class FilledRequest implements Serializable {
 
 	private String title, description;
-	private String username, time, location;
+	private String username, nickname, time, location;
 	private int state;
 
-	public FilledRequest(String title, String description, String time, Player creator) {
+	public FilledRequest(String title, String description, String time, String nickname, Player creator) {
 		this.title = title;
 		this.description = description;
 		username = creator.getName();
+		this.nickname = creator.getDisplayName();
 		refresh(creator);
 		this.time = time;
 		state = 0;
@@ -29,6 +30,10 @@ public class FilledRequest implements Serializable {
 		return description;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

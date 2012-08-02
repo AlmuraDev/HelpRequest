@@ -6,18 +6,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class HelpRequest extends JavaPlugin {
 
 	private List<FilledRequest> opened = new ArrayList<FilledRequest>();
 	private List<FilledRequest> closed = new ArrayList<FilledRequest>();
 	private List<String> admins = new ArrayList<String>();
+	public static String hotkeys = null;
 
 	@Override
 	public void onDisable() {
@@ -40,12 +45,14 @@ public class HelpRequest extends JavaPlugin {
 		}
 		FileConfiguration config = getConfig();
 		config.addDefault("Admins", Arrays.asList("Notch","Jeb_"));
+		config.addDefault("HOT_KEY", "KEY_F6");
 		config.options().copyDefaults(true);
 		saveConfig();
 		
 		admins = config.getStringList("Admins");
+		hotkeys = config.getString("HOT_KEY");
 		
-		PluginManager pm = getServer().getPluginManager();
+		PluginManager pm = getServer().getPluginManager();		
 		pm.registerEvents(new HRListener(this), this);
 	}
 
@@ -94,7 +101,7 @@ public class HelpRequest extends JavaPlugin {
 		for(String admin : admins) {
 			Player aplr = Bukkit.getPlayer(admin);
 			if(aplr != null) {
-				aplr.sendMessage(ChatColor.GREEN+"A new request has been added!");
+				aplr.sendMessage(ChatColor.GREEN+"[HelpRequest] " + ChatColor.GOLD + request.getNickname() + ChatColor.WHITE + " has added a new request!");
 			}
 		}
 	}
@@ -110,6 +117,17 @@ public class HelpRequest extends JavaPlugin {
 		}
 	}
 
+	public void deleteRequest(FilledRequest fr) {
+		fr.setState(1);
+		opened.remove(fr);
+		closed.remove(fr);
+		String username = fr.getUsername();
+		Player player = Bukkit.getPlayer(username);
+		if (player != null) {
+			player.sendMessage(ChatColor.GOLD + "One of your issues, called " + ChatColor.GREEN + "\"" + fr.getTitle() + "\"" + ChatColor.GOLD + " has been deleted!");
+		}
+	}
+	
 	void reopenRequest(FilledRequest fr) {
 		fr.setState(0);
 		closed.remove(fr);
@@ -119,5 +137,26 @@ public class HelpRequest extends JavaPlugin {
 		if (player != null) {
 			player.sendMessage(ChatColor.GOLD + "One of your issues, called " + ChatColor.GREEN + "\"" + fr.getTitle() + "\"" + ChatColor.GOLD + " has been reopened!");
 		}
+	}
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {		
+		Player player = null;
+		if (sender instanceof Player) {
+			player = (Player) sender;
+		}
+
+		if (cmd.getName().equalsIgnoreCase("helprequest")) {
+			if (player == null) {
+				sender.sendMessage("HelpRequest cannot be run from the server console.");
+			} else {
+				if (sender.hasPermission("helprequest.use")) {
+				((SpoutPlayer) sender).getMainScreen().attachPopupScreen(new MainGUI(this,(SpoutPlayer) sender));
+				} else {
+					sender.sendMessage(ChatColor.GREEN + "[HelpRequest]" + ChatColor.WHITE + "- Permissions Denied");
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 }

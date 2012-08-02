@@ -1,4 +1,22 @@
 name: HelpRequest
 main: com.almuramc.helprequest.HelpRequest
-version: 0.1
+version: 1.0
 authors: [Dockter, ZNickq]
+commands:   
+  helprequest:
+    description: HelpRequest command.
+    aliases: helpme
+    usage: /helprequest [player]
+    permission: helprequest.use
+    permissions-message: You don't have <permission>
+permissions:
+    helprequest.*:
+        description: Gives access to all HelpRequest abilities
+        children:
+            helprequest.admin: true           
+    helprequest.admin:
+        description: Allows users to be able to view all requests.
+        default: OP
+    helprequest.use:
+        description: Allows users to be able to create and edit their own requests.
+        default: false
