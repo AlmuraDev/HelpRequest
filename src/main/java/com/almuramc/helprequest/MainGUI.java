@@ -5,6 +5,8 @@
 package com.almuramc.helprequest;
 
 import com.almuramc.helprequest.customs.DirectionButton;
+
+import org.bukkit.Bukkit;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.GenericPopup;
@@ -29,7 +31,7 @@ public class MainGUI extends GenericPopup {
 
 		
 		//Set the background
-		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
+		GenericTexture border = new GenericTexture("http://www.almuramc.com/images/playerplus.png");
 		border.setAnchor(WidgetAnchor.CENTER_CENTER);
 		border.setPriority(RenderPriority.High);
 		border.setWidth(170).setHeight(130);
@@ -70,13 +72,16 @@ public class MainGUI extends GenericPopup {
 	public void onDirection(int dir) {
 		switch (dir) {
 			case 1: //Create
+				who.getMainScreen().closePopup();
 				new ViewGUI(main, who, 0, null);
 				break;
 			case 2: //Edit
-				new RequestListGUI(main, who, true);
+				who.getMainScreen().closePopup();
+				new RequestListGUI(main, who, true);				
 				break;
 			case 3: //View
-				new RequestListGUI(main, who, false);
+				who.getMainScreen().closePopup();
+				new RequestListGUI(main, who, false);				
 				break;
 			case 4:
 				Screen screen = ((SpoutPlayer) getPlayer()).getMainScreen();

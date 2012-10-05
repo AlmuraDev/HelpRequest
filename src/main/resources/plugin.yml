@@ -1,6 +1,6 @@
 name: HelpRequest
 main: com.almuramc.helprequest.HelpRequest
-version: 1.0
+version: 1.1
 authors: [Dockter, ZNickq]
 depend: [Spout]
 commands:   

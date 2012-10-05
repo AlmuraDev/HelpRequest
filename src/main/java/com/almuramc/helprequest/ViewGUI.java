@@ -38,7 +38,7 @@ public class ViewGUI extends GenericPopup {
 		player = who;
 
 		//Set the background
-		GenericTexture border = new GenericTexture("http://www.pixentral.com/pics/1duZT49LzMnodP53SIPGIqZ8xdKS.png");
+		GenericTexture border = new GenericTexture("http://www.almuramc.com/images/playerplus.png");
 		border.setAnchor(WidgetAnchor.CENTER_CENTER);
 		border.setPriority(RenderPriority.High);
 		border.setWidth(626).setHeight(240);
@@ -128,7 +128,6 @@ public class ViewGUI extends GenericPopup {
 
 		refreshForState();
 
-		who.getMainScreen().closePopup();
 		who.getMainScreen().attachPopupScreen(this);
 
 	}
