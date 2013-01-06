@@ -4,6 +4,8 @@ import com.almuramc.helprequest.customs.DirectionButton;
 import com.almuramc.helprequest.customs.MyComboBox;
 import java.util.Arrays;
 import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.getspout.spoutapi.gui.GenericButton;
 import org.getspout.spoutapi.gui.GenericComboBox;
 import org.getspout.spoutapi.gui.GenericLabel;
@@ -97,13 +99,8 @@ public class RequestListGUI extends GenericPopup {
 		}
 		gle.clear();
 		for (FilledRequest fre : isDisplaying) {
-			gle.addItem(new ListWidgetItem(fre.getTitle() + " - by " + fre.getUsername(), fre.getDescription()));
+			gle.addItem(new ListWidgetItem(ChatColor.YELLOW + fre.getTitle() + ChatColor.WHITE + " - by " + fre.getUsername(), ChatColor.DARK_GREEN + fre.getDescription()));
 		}
-	}
-
-	public void onSelected(int item, boolean doubleClick) {
-		//TODO maybe open on double-click or w/e
-		//Nickq: Do Nothing
 	}
 
 	public void onDirection(int dir) {
@@ -138,8 +135,6 @@ public class RequestListGUI extends GenericPopup {
 			}
 			refreshForContent();
 		}
-
-
 	}
 
 	public void onSelectionChanged(String text) {
@@ -155,5 +150,10 @@ public class RequestListGUI extends GenericPopup {
 			closereq.setText("Reopen Request").setDirty(true);
 			refreshForContent();
 		}
+	}
+
+	public void onSelected(int item, boolean doubleClick) {
+		// TODO Auto-generated method stub
+		// This doesn't actually work...
 	}
 }
